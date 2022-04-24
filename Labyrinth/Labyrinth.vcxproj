@@ -140,16 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Labyrinth.cpp" />
-    <ClCompile Include="Level1.cpp" />
-    <ClCompile Include="Level2.cpp" />
     <ClCompile Include="RunLevel1.cpp" />
     <ClCompile Include="RunLevel2.cpp" />
+    <ClCompile Include="RunLevel3.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Level1.h" />
-    <ClInclude Include="Level2.h" />
     <ClInclude Include="RunLevel1.h" />
     <ClInclude Include="RunLevel2.h" />
+    <ClInclude Include="RunLevel3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

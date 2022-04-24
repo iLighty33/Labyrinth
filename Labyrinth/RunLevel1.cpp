@@ -3,119 +3,132 @@
 #include <iostream>
 #include <conio.h>
 #include "windows.h"
+
+void changeWindowSize1() {
+
+    //Изменить размер окна
+    HWND hwnd;
+    char Title[1024]; // Переменная для запоминания заголовка окна
+    GetConsoleTitle((LPWSTR)Title, 1024); // Узнаём имя окна
+    hwnd = FindWindow(NULL, (LPWSTR)Title); // Узнаём hwnd окна
+    MoveWindow(hwnd, 0, 0, 400, 400, TRUE);  // x, y, w, h - новые положения, x, y - ширина окна
+
+    //Задаём цвет консоли
+    system("color 2F");
+}
+
 void runLevel1(char level1[15][15], int levelRows, int levelColumns) {
 
-    system("color 2F");
-
+    //Запускаем функцию по изменению размера окна
+    changeWindowSize1();
+    // Начальные координаты игрока
     int posX = 1, posY = 0;
 
+    // Переменная для считывания шага
     char move;
+
+    // Переменная для счётчика шагов
     int moves = 0;
 
+    // Значок игрока
     level1[posX][posY] = 'Ж';
 
-    // Показать уровень (начальный экран)   
+    // Счётчик количества шагов
     std::cout << "Кол-во шагов: " << moves << "\n\n";
 
-    for (int i = 0; i < levelRows; i++) {
-        for (int j = 0; j < levelColumns; j++) {
-            std::cout << level1[i][j] << " ";
+    // Показать уровень (начальный экран)  
+    showLevel1(level1, levelRows, levelColumns);
 
-        }
-        std::cout << "\n";
-    }
-
-    // Создаём бесконечный цикл while
+    // Создаём бесконечный цикл while. 
     bool levelComplete = false;
-    while (levelComplete != true) {
-        // if (_kbhit()) { 
-     /*
-             sym = _getch();
-
-             switch (sym) {
-             case 'a': case 'A': system("cls"); cout << "Шаг влево\n"; break;
-             case 'd': case 'D': system("cls"); cout << "Шаг вправо\n"; break;
-             }*/
-             //  }
-               //Sleep(100);
-               //timer += 100;
-              // if (timer >= 1000) {
-              //     cout << ".\n";
-              //     timer = 0;
+    while (!levelComplete) {
 
         std::cout << "\nНажмите клавишу (W A S D): ";
-        //cin >> move;
         move = _getch();
 
         // добавляем ввод с клавиш W A S D
-        // после перемещения игрока - удаляется его "тень"
-
-        if (move == 's' || move == 'S') {
-            //std::cout << "Швг вниз" << std::endl;
+        switch (move) {
+        case 's': case 'S':
             posX++;
-            // swap(level1[posX][posY], level1[posX+1][posY]);
-            if (posX >= 0)
-                level1[posX - 1][posY] = ' '; // удаление тени
-        }
-        if (move == 'w' || move == 'W') {
+            if (posX >= 0 && level1[posX][posY] != '#' && level1[posX][posY] != 'O') { 
+                std::swap(level1[posX][posY], level1[posX - 1][posY]);
+                moves++;
+                break;
+            }
+            break;
+
+        case 'w': case 'W':
             posX--;
-            if (posX >= 0)
-                level1[posX + 1][posY] = ' ';
-        }
-        if (move == 'a' || move == 'A') {
+            if (posX >= 0 && level1[posX][posY] != '#' && level1[posX][posY] != 'O') {
+                std::swap(level1[posX][posY], level1[posX + 1][posY]);
+                moves++;
+                break;
+            }
+            break;
+
+        case 'a': case 'A':
             posY--;
-            if (posY >= 0)
-                level1[posX][posY + 1] = ' ';
+            if (posY >= 0 && level1[posX][posY] != '#' && level1[posX][posY] != 'O') {
+                std::swap(level1[posX][posY], level1[posX][posY + 1]);
+                moves++;
+                break;
+            }
+            break;
+
+
+        case 'd': case 'D':
+            posY++;
+            if (posY >= 0 && level1[posX][posY] != '#' && level1[posX][posY] != 'O') {
+                std::swap(level1[posX][posY], level1[posX][posY - 1]);
+                moves++;
+                break;
+            }
+            break;
+            
         }
 
-        if (move == 'd' || move == 'D') {
-            posY++;
-            if (posY >= 0)
-                level1[posX][posY - 1] = ' ';
-        }
+        // Если мы добрались до портала-завершаем уровень
         if (level1[posX][posY] == 'O') {
             system("cls");
             std::cout << "Общее количество шагов за уровень: " << moves << std::endl;
             std::cout << "LEVEL 1 COMPLETED";
             Sleep(2000);
             levelComplete = true;
-
-            //break;
         }
 
+        // Если пытаем пройти сквозь стенку - шаг назад
         if (level1[posX][posY] == '#') {
             system("cls");
-            // moves--;
-            if (move == 's')
-                posX--;
-            if (move == 'w')
-                posX++;
-            if (move == 'a')
-                posY++;
-            if (move == 'd')
-                posY--;
-            //cout << "FINISH";
-        }
-        else
-
-            // счётчик шагов
-
-            if (level1[posX][posY] == ' ') {
-                moves++;
+         
+            switch (move) {
+            case 's': case 'S':
+                posX--; break;
+            case 'w': case 'W':
+                posX++; break;
+            case 'a': case 'A':
+                posY++; break;
+            case 'd': case 'D':
+                posY--; break;
             }
 
+        }
+
+        // Прорисовываем уровень заного
         system("cls");
-
         level1[posX][posY] = 'Ж';
-
         std::cout << "Кол-во шагов: " << moves << "\n\n";
 
-        for (int i = 0; i < 15; i++) {
-            for (int j = 0; j < 15; j++) {
-                std::cout << level1[i][j] << " ";
+        showLevel1(level1, levelRows, levelColumns);
 
-            }
-            std::cout << "\n";
+    }
+}
+
+void showLevel1(char level1[15][15], int levelRows, int levelColumns) {
+    for (int i = 0; i < levelRows; i++) {
+        for (int j = 0; j < levelColumns; j++) {
+            std::cout << level1[i][j] << " ";
+
         }
+        std::cout << "\n";
     }
 }

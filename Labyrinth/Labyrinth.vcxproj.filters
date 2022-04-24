@@ -18,30 +18,24 @@
     <ClCompile Include="Labyrinth.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Level1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="RunLevel1.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Level2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="RunLevel2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RunLevel3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Level1.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RunLevel1.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Level2.h">
+    <ClInclude Include="RunLevel2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="RunLevel2.h">
+    <ClInclude Include="RunLevel3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
